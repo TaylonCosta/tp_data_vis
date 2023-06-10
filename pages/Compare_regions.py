@@ -5,7 +5,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
 
-def populacao(dataset):
+def population(dataset):
 
     fig = go.Figure()
     for entry in countries:
@@ -31,7 +31,7 @@ def populacao(dataset):
 
     return fig
 
-def mortalidade(dataset):
+def mortality(dataset):
     fig = go.Figure()
     for entry in countries:
         df = dataset[(dataset['Location'] == entry) & (dataset['Time'] >= start) & (dataset['Time'] <= finish)]
@@ -52,7 +52,7 @@ def mortalidade(dataset):
 
     return fig
 
-def expectativa(dataset):
+def life_expectancy(dataset):
 
     fig = go.Figure()
     for entry in countries:
@@ -76,7 +76,7 @@ def expectativa(dataset):
 
     return fig
 
-def dispersao(dataset):
+def scatter(dataset):
     df = dataset[(dataset['Location'].isin(countries)) & (dataset['Time'] >= start) & (dataset['Time'] <= finish)]
 
     fig = px.scatter(df, x="TPopulation1July", y="PopDensity", animation_frame="Time",
@@ -106,6 +106,8 @@ if __name__ == '__main__':
     st.set_page_config(layout="wide")
 
     df = pd.read_csv('WPP2022_Demographic_Indicators_Medium.csv', low_memory=False)
+    # adjust values in thousands
+    df['TPopulation1July'] = df['TPopulation1July']*1000
 
     st.header('Compare regions')
     region_type = st.sidebar.multiselect('Choose the type of region', options = df['LocTypeName'].unique())
@@ -129,14 +131,13 @@ if __name__ == '__main__':
             countries = opt
 
     with st.container():
-        st.plotly_chart(populacao(df))
+        st.plotly_chart(population(df))
 
     col1, col2 = st.columns(2)
     with col1:
-        st.plotly_chart(expectativa(df))
+        st.plotly_chart(life_expectancy(df))
     with col2:
-        st.plotly_chart(mortalidade(df))
+        st.plotly_chart(mortality(df))
 
     with st.container():
-        st.plotly_chart(dispersao(df))
-
+        st.plotly_chart(scatter(df))
