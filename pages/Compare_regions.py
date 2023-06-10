@@ -15,7 +15,7 @@ def populacao(dataset):
         )
 
     if finish > 2022.5:
-        fig.add_vrect(x0=2022.5, x1=finish,
+        fig.add_vrect(x0=2022.5, x1=finish+0.5,
                     annotation_text='Projection', annotation_position="top left",
                     fillcolor="gray", opacity=0.25, line_width=0)
 
@@ -38,7 +38,7 @@ def mortalidade(dataset):
         fig.add_trace(go.Scatter(x=df['Time'], y=df['CDR'], mode='lines+markers', name=entry))
 
     if finish > 2022.5:
-        fig.add_vrect(x0=2022.5, x1=finish,
+        fig.add_vrect(x0=2022.5, x1=finish+0.5,
               annotation_text='Projection', annotation_position="top left",
               fillcolor="gray", opacity=0.25, line_width=0)
 
@@ -62,7 +62,7 @@ def expectativa(dataset):
         )
 
     if finish > 2022.5:
-        fig.add_vrect(x0=2022.5, x1=finish,
+        fig.add_vrect(x0=2022.5, x1=finish+0.5,
               annotation_text='Projection', annotation_position="top left",
               fillcolor="gray", opacity=0.25, line_width=0)
 

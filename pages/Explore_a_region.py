@@ -10,22 +10,25 @@ def populacao(dataset):
     fig = go.Figure()
     df = dataset[(dataset['Location'] == country) & (dataset['Time'] >= start) & (dataset['Time'] <= finish)]
     fig.add_trace(
-        go.Scatter(x=df['Time'], y=df['TPopulation1July'], mode='lines+markers', name=country)
+        go.Bar(x=df['Time'], y=df['Births'], name='Births', marker_color='blue')
+    )
+    fig.add_trace(
+        go.Bar(x=df['Time'], y=-df['Deaths'], name='Deaths', marker_color='red')
     )
 
     if finish > 2022.5:
-        fig.add_vrect(x0=2022.5, x1=finish,
+        fig.add_vrect(x0=2022.5, x1=finish+0.5,
                     annotation_text='Projection', annotation_position="top left",
                     fillcolor="gray", opacity=0.25, line_width=0)
 
     fig.update_layout(
-        title='Total Population',
+        title='Total Births and Deaths',
         plot_bgcolor='white',
         xaxis=dict(showgrid=True, tickmode='linear', tick0=start, dtick=10, gridcolor='rgb(230, 230, 230)'),
         yaxis=dict(showgrid=True, gridcolor='rgb(230, 230, 230)', tickformat='.3s'),
         width = 1400,
         height=700,
-        hovermode="x unified"
+        barmode='relative'
     )
 
     return fig
