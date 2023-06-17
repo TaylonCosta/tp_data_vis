@@ -100,7 +100,8 @@ if __name__ == '__main__':
 
     df = pd.read_csv('WPP2022_Demographic_Indicators_Medium.csv', low_memory=False)
     # adjust values in thousands
-    df['TPopulation1July'] = df['TPopulation1July']*1000 
+    df['TPopulation1July'] = df['TPopulationMale1July']*1000
+    df['TPopulation1July'] = df['TPopulationFemale1July']*1000
     df['Births'] = df['Births']*1000 
     df['Deaths'] = df['Deaths']*1000 
 
